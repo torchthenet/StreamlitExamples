@@ -2,7 +2,9 @@
 """ FakeBot from the Streamlit tutorial at:
 https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps
 
+Converted to use __main__.
 Exanded the response list.
+Added set_page_config.
 """
 import streamlit as st
 import random

@@ -22,6 +22,40 @@ def manage_account():
 
 def learn():
     st.header('Learn')
+    button_cols=st.columns(2,vertical_alignment='center')
+    show_session_state_btn=button_cols[0].button(
+            'Session State',
+            help="Show session state values",
+            use_container_width=True)
+    reset_module_btn=button_cols[1].button(
+            'Reset',
+            help="Reset session state values",
+            use_container_width=True)
+    if show_session_state_btn:
+        ShowSessionState()
+    if reset_module_btn:
+        ResetModule()
+
+def ShowSessionState():
+    """ Dump the session state 
+    """
+    st.write('### Show Session State')
+    if 'uploaded_file' not in st.session_state:
+        st.session_state['uploaded_file']='No file selected yet'
+    for k in st.session_state.keys():
+        with st.expander(
+                    label='st.session_state['+k+']',
+                    expanded=False,
+                    icon=':material/stylus:'):
+            st.write(st.session_state[k])
+
+def ResetModule():
+    """ This does the same as a browser refresh
+    """
+    st.write('### Reset Module')
+    for k in st.session_state.keys():
+        del st.session_state[k]
+    st.write('Application State Was Reset :material/reset_settings:')
 
 def demo():
     """ Demo and test Streamlit components
@@ -80,6 +114,56 @@ def demo():
             st.write(':blue[Popover] message')
     if toast_btn:
         st.toast('This is a :red[toast]!',icon=':material/bolt:')
+    # https://docs.streamlit.io/develop/api-reference/widgets/st.segmented_control
+    option_map = {
+        0: ":material/add:",
+        1: ":material/zoom_in:",
+        2: ":material/zoom_out:",
+        3: ":material/zoom_out_map:",
+    }
+    selection = st.segmented_control(
+        "Tool",
+        options=option_map.keys(),
+        format_func=lambda option: option_map[option],
+        selection_mode="single",
+    )
+    # TODO: demonstrate invoking a function from selection
+    st.write(
+        "Your selected option: "
+        f"{None if selection is None else option_map[selection]}"
+    )
+    # Work on file and directory selection
+    button_cols=st.columns(5,vertical_alignment='center')
+    select_file_btn=button_cols[0].button(
+            'Select File',
+            help='Select a file',
+            use_container_width=True)
+    select_dir_btn=button_cols[1].button(
+            'Select Directory',
+            help='Select a directory',
+            use_container_width=True)
+    if 'uploaded_file' not in st.session_state:
+        st.session_state['uploaded_file']='No file selected yet'
+    if select_file_btn:
+        select_file()
+    if select_dir_btn:
+        pass
+
+def select_file():
+    """ Select a single, existing file from the local filesystem.
+    This uses the Streamlit feature.
+    """
+    uploaded_file = st.file_uploader("Choose a JSON file",type='json',help='Pick a single .json file to upload')
+    if uploaded_file is not None:
+        st.write('You uploaded: ', uploaded_file.name)
+        st.session_state['uploaded_file']=uploaded_file
+
+def select_dir():
+    """ Select a single, existing directory from the local filesystem.
+    There isn't a Streamlit feature to do this.
+    Options are to use TclTk, or win32, or PowerShell?
+    """
+    pass
 
 @st.dialog('Demonstration Dialog')
 def DemonstrationDialog():
@@ -115,7 +199,7 @@ st.set_page_config(
         menu_items={
                 'Get Help': None,
                 'Report a bug': None,
-                'About': None,
+                'About': '# Demo App',
                 } )
 pg = st.navigation(pages)
 pg.run()
