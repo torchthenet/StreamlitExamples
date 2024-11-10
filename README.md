@@ -25,11 +25,12 @@ Started as st.navigation example code, then kept adding demo of other components
 Note: An error that module Streamlit does not contain an object indicates Streamlit is outdated.
 
 To update Streamlit:
+
 1. conda activate <environment_name>
 1. conda update -c conda-forge streamlit -y
 1. streamlist version
 
-See: https://docs.streamlit.io/knowledge-base/using-streamlit/how-upgrade-latest-version-streamlit
+See: [https://docs.streamlit.io/knowledge-base/using-streamlit/how-upgrade-latest-version-streamlit](https://docs.streamlit.io/knowledge-base/using-streamlit/how-upgrade-latest-version-streamlit)
 
 ## TaskTracker
 
