@@ -40,8 +40,6 @@ def ShowSessionState():
     """ Dump the session state 
     """
     st.write('### Show Session State')
-    if 'uploaded_file' not in st.session_state:
-        st.session_state['uploaded_file']='No file selected yet'
     for k in st.session_state.keys():
         with st.expander(
                     label='st.session_state['+k+']',
@@ -142,21 +140,37 @@ def demo():
             'Select Directory',
             help='Select a directory',
             use_container_width=True)
-    if 'uploaded_file' not in st.session_state:
-        st.session_state['uploaded_file']='No file selected yet'
+    if 'uploaded_files' not in st.session_state:
+        st.session_state['uploaded_files']='No files selected yet'
     if select_file_btn:
         select_file()
     if select_dir_btn:
         pass
 
+@st.dialog('File Selection Dialog')
 def select_file():
     """ Select a single, existing file from the local filesystem.
-    This uses the Streamlit feature.
+    This uses the Streamlit st.file_uploader feature.
+    There is no way to clear the list of selected files.
+    Putting this in a modal dialog allows the list to be cleared.
+    The filename list is saved in st.session_state.
+    While st.file_uploader returns a list of file-like objects, this list is
+    released when the dialog exits.
+    Saving the list in a session_state variable doesn't work.
+    The solution is to make a deep copy of the list.
     """
-    uploaded_file = st.file_uploader("Choose a JSON file",type='json',help='Pick a single .json file to upload')
-    if uploaded_file is not None:
-        st.write('You uploaded: ', uploaded_file.name)
-        st.session_state['uploaded_file']=uploaded_file
+    files = st.file_uploader("Choose JSON files",
+                             type='json',
+                             accept_multiple_files=True,
+                             help='Pick one or more .json files to upload')
+    if len(files):
+        st.session_state['uploaded_files']=list()
+        for file in files:
+            st.session_state['uploaded_files'].append(file)
+        for file in st.session_state['uploaded_files']:
+            st.write('Filename: ', file.name)
+    st.write('Press :red[CLOSE] to exit')
+    if st.button('CLOSE'): st.rerun()
 
 def select_dir():
     """ Select a single, existing directory from the local filesystem.

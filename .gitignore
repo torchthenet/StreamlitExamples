@@ -1,3 +1,4 @@
 *.log
 *.zip
 task_log.txt
+*.code-workspace
