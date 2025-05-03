@@ -31,13 +31,16 @@ def ChatbotModule():
             help='Enable mode to allow multiple chat sessions.',
             key='multi_mode')
     st.markdown('### Chatbot Module')
-    st.divider()    
+    st.divider()
     button_cols=st.columns(2,vertical_alignment='bottom')
     # Load list of models
+    button_cols[0].markdown('Select Ollama Model')
     model_list=["model1","model2","model3"]
     model=button_cols[0].selectbox(
             'Select Ollama Model',
             model_list,
+            label_visibility='collapsed',
+            help='Select the model to use for the chatbot',
             key='model_key')
     # Error: st.session_state.model_key cannot be modified after the widget with key model_key is instantiated.
     #st.session_state['model_key']=model
