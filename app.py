@@ -51,18 +51,18 @@ def ChatbotModule():
             help='Start a new chat',
             use_container_width=True)
     if new_chat_btn:
-        if system_key in st.session_state.keys():
-            del st.session_state[system_key]
-        if messages_key in st.session_state.keys():
-            del st.session_state[messages_key]
-        if metrics_key in st.session_state.keys():
-            del st.session_state[metrics_key]
-        if session_log_key in st.session_state.keys():
-            del st.session_state[session_log_key]
-        if metrics_log_key in st.session_state.keys():
-            del st.session_state[metrics_log_key]
-        if prompt_key in st.session_state.keys():
-            del st.session_state[prompt_key]
+        # if system_key in st.session_state.keys():
+        #     del st.session_state[system_key]
+        # if messages_key in st.session_state.keys():
+        #     del st.session_state[messages_key]
+        # if metrics_key in st.session_state.keys():
+        #     del st.session_state[metrics_key]
+        # if session_log_key in st.session_state.keys():
+        #     del st.session_state[session_log_key]
+        # if metrics_log_key in st.session_state.keys():
+        #     del st.session_state[metrics_log_key]
+        # if prompt_key in st.session_state.keys():
+        #     del st.session_state[prompt_key]
         st.rerun()
     if editor_mode:
         slider_cols=st.columns(3,vertical_alignment='center')
