@@ -1,0 +1,15 @@
+Create a new environment
+$ conda create -n streamtest streamlit
+environment location: %USERPROFILE%\anaconda3\envs\streamtest
+
+Activate new environment
+$ conda activate streamtest
+$ pip install ollama
+
+(streamtest) $ conda list ollama
+# packages in environment at C:\Users\test\anaconda3\envs\streamtest:
+#
+# Name                    Version                   Build  Channel
+ollama                    0.4.8                    pypi_0    pypi
+
+
