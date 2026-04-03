@@ -1,4 +1,7 @@
 *.log
 *.zip
 task_log.txt
-*.code-workspace
+
+venv/
+__pycache__/
+*.pyc

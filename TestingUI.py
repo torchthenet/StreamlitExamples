@@ -310,7 +310,7 @@ def ShowSessionState():
     st.write('### Show Session State')
     for k in st.session_state.keys():
         with st.expander(
-                    label='st.session_state['+k+']',
+                    label=f'st.session_state[{k}]',
                     expanded=True,
                     icon=':material/stylus:'):
             st.write(st.session_state[k])
@@ -322,7 +322,7 @@ def ResetModule():
     for k in st.session_state.keys():
         if k == 'log':
             st.session_state['log'].info('Application reset - session_state cleared')
-        elif k[:4] == 'sys_':
+        elif str(k)[:4] == 'sys_':
             pass
         else:
             del st.session_state[k]
