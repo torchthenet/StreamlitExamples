@@ -134,3 +134,12 @@ Committed all changes to git, but will need to wait to push and sync repo.
 #### claude cli with ollama_ministral-3_14b
 
 ollama launch claude --model ministral-3:14b -- --name ollama_ministral-3_14b
+
+Running 100% GPU with 15G size at 32k context.
+
+The @TaskTracker.py app is very rudimetary. To execute the app activate the venv and then execute 'streamlit run TaskTracker.py'. Let's add some functionality. The user should have a way to add and delete tasks from the list. What do you suggest?
+
+Runs 3 explore agents.
+Takes ~52 minutes.
+Resulting code throws error. Pasted back into prompt.
+It also doesn't log task start/stop time anymore.
